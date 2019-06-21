@@ -7,8 +7,26 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
   HashTable *ht = create_hash_table(16);
 
-  /* YOUR CODE HERE */
-
+  for (int i = 0; i < length; i++) {
+    int difference = limit - weights[i];
+    // store the difference between the weight value and limit in a variable
+    // so that we can search for that on the table
+    int differencecheck = hash_table_retrieve(ht, difference);
+    if (differencecheck != -1) {
+    // if a key is found that matches the difference, create a pointer var
+    // for an answer object and malloc memory to it
+      Answer *answer = malloc(sizeof(Answer));
+      // assign the indexes for the current item and the found item to the answer object
+      answer->index_1 = i;
+      answer->index_2 = differencecheck;
+      return answer;
+    } 
+    else {
+    // IF a key is not found that matches the difference, insert into a bucket a
+    // pair with key of the weight, and value of the index.
+    hash_table_insert(ht, weights[i], i);
+    }
+  }
   return NULL;
 }
 
