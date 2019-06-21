@@ -14,14 +14,12 @@ char **reconstruct_trip(Ticket **tickets, int length)
     hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
   }
 
-
-  for (int i = 0; i < length; i++) {
-    if (hash_table_retrieve(ht, tickets[i]->source) == "NONE") {
-      
+  for (int i = 0; i < length; i++) {   
+      route[i] = hash_table_retrieve(ht, tickets[i]->source);
     }
+  for (int i = 0; i < length; i++) {
+    printf("%s\n", route[i]);
   }
-
-
   return route;
 }
 
