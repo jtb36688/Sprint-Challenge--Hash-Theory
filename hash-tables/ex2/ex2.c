@@ -13,10 +13,12 @@ char **reconstruct_trip(Ticket **tickets, int length)
     // insert each ticket into the ht with source as key and destination as value
     hash_table_insert(ht, tickets[i]->source, tickets[i]->destination);
   }
-
+  char *curr = hash_table_retrieve(ht, "NONE");
+  // set curr ticket to the first, with source of "NONE";
   for (int i = 0; i < length; i++) {   
-      route[i] = hash_table_retrieve(ht, tickets[i]->source);
-    }
+    route[i] = curr;
+    curr = hash_table_retrieve(ht, curr);
+  }
   for (int i = 0; i < length; i++) {
     printf("%s\n", route[i]);
   }
